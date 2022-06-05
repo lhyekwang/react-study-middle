@@ -8,6 +8,7 @@ import Department from './Department';
 import TagList from './TagList';
 import FetchLable from '../component/FetchLable';
 import History from '../../common/component/History';
+import useNeedLogin from '../../common/hook/useNeedLogin';
 /**
  *
  * @param {object} param
@@ -15,6 +16,7 @@ import History from '../../common/component/History';
  */
 
 export default function User({ match }) {
+  useNeedLogin();
   const history = useHistory();
   const dispatch =useDispatch();
   const user = useSelector(state => state.user.user);

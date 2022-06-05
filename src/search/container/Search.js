@@ -5,8 +5,10 @@ import SearchInput from '../container/SearchInput';
 import History from '../../common/component/History';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../state';
+import useNeedLogin from '../../common/hook/useNeedLogin';
 
 export default function Search() {
+  useNeedLogin();
 
   const history = useSelector(state => state.search.history);
   const dispatch = useDispatch();
