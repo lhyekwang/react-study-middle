@@ -6,6 +6,8 @@ import Signup from './auth/container/Signup';
 import { Route } from 'react-router-dom';
 
 import 'antd/dist/antd.css';
+import { useDispatch } from 'react-redux';
+import { actions } from './auth/state';
 
 export default function App() {
   useEffect(() => {
@@ -13,6 +15,10 @@ export default function App() {
     const loadingEl = document.getElementById('init-loading');
     bodyEl.removeChild(loadingEl);
   }, []);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actions.fetchUser())
+  }, [dispatch]);  
   return (
     <>
       <Route exact path="/" component={Search} />
