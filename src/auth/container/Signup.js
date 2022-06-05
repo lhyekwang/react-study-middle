@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom';
 import AuthLayout from '../component/AuthLayout';
 import { useDispatch } from 'react-redux';
 import { actions } from '../state';
+import useBlockLoginUser from '../../common/hook/userBlockLoginUser';
 
 export default function Signup() {
+  useBlockLoginUser();
+
   const dispatch = useDispatch();
   function onFinish({ name }) {
     const email = `${name}${EMAIL_SUFFIX}`;

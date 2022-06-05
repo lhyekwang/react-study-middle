@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import AuthLayout from '../component/AuthLayout';
 import { useDispatch } from 'react-redux';
 import { actions } from '../state';
+import useBlockLoginUser from '../../common/hook/userBlockLoginUser';
 
 export default function Login() {
+  useBlockLoginUser();
 
   const dispatch = useDispatch();
 
