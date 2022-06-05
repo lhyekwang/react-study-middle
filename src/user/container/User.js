@@ -6,6 +6,7 @@ import { actions  , Types} from '../state';
 import useFetchInfo from '../../common/hook/useFetchInfo';
 import Department from './Department';
 import TagList from './TagList';
+import FetchLable from '../component/FetchLable';
 /**
  *
  * @param {object} param
@@ -31,23 +32,39 @@ export default function User({ match }) {
           <PageHeader
             onBack={history.goBack}
             title={
-              <Space>
-                  사용자 정보
-                  { isSlow && <Spin size="small"/> }
-              </Space>
+              <FetchLable
+                  label='사용자 정보'
+                  actionType={Types.FetchUser}
+                />
             }
           >
           {user && (
               <Descriptions layout="vertical" bordered column={1}>
+
                 <Descriptions.Item label="이름">
                   <Typography.Text>{user.name}</Typography.Text>
                 </Descriptions.Item>
-                <Descriptions.Item label='소속'>
+
+                <Descriptions.Item label={
+                  <FetchLable
+                    label = '소속'
+                    actionType = {Types.FetchUpdateUser}
+                    fetchKey = 'department'
+                    />
+                }>
                   <Department />
                 </Descriptions.Item>
-                <Descriptions.Item label='태그'>
+
+                <Descriptions.Item label={
+                  <FetchLable
+                    label='태그'
+                    actionType={Types.FetchUpdateUser}
+                    fetchKey='tag'
+                    />
+                }>
                   <TagList />
                 </Descriptions.Item>
+
                 <Descriptions.Item label='수정 내역'>수정 내역</Descriptions.Item>
               </Descriptions>
           )}
