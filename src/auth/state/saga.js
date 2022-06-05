@@ -19,11 +19,29 @@ function* fetchLogin({ name, password }) {
   }
 }
 
+function* fetchSignup({ email }) {
+  const { isSuccess, data } = yield call(callApi, {
+    url: '/auth/signup',
+    method: 'post',
+    data: {
+      email,
+    },
+  });
+
+  if (isSuccess && data) {
+    yield put(actions.setUser(data.name));
+  }
+}
+
 export default function* () {
   yield all([
     takeLeading(
       Types.FetchLogin,
       makeFetchSaga({ fetchSaga: fetchLogin, canCache: false }),
+    ),
+    takeLeading(
+      Types.FetchSignup,
+      makeFetchSaga({ fetchSaga: fetchSignup, canCache: false }),
     ),
   ]);
 }

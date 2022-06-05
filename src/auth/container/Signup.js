@@ -2,11 +2,19 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import AuthLayout from '../component/AuthLayout';
+import { useDispatch } from 'react-redux';
+import { actions } from '../state';
 
 export default function Signup() {
+  const dispatch = useDispatch();
+  function onFinish({ name }) {
+    const email = `${name}${EMAIL_SUFFIX}`;
+    dispatch(actions.fetchSignup(email));
+  }
+
   return (
     <AuthLayout
-        onFinish={()=>{}}
+        onFinish={onFinish}
     >
       <Form.Item
         name="name"
