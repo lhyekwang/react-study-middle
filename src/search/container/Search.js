@@ -1,9 +1,20 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import { Row ,Col ,Typography } from 'antd';
 import Settings from '../component/Settings';
 import SearchInput from '../container/SearchInput';
+import History from '../../common/component/History';
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from '../state';
 
 export default function Search() {
+
+  const history = useSelector(state => state.search.history);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(actions.fetchAllHistory());
+  }, [dispatch]);
+
   return (
     <>
       <Row justify="end" style={{ padding: 20 }}>
@@ -25,7 +36,7 @@ export default function Search() {
       </Row>
       <Row justify="center" style={{ marginTop: 50 }}>
         <Col xs={20} md={16} lg={12}>
-          {/* <History items={history} /> */}
+          <History items={history} />
         </Col>
       </Row>
     </>

@@ -1,5 +1,5 @@
 import React , {useEffect} from 'react';
-import { Row ,Col ,Typography, PageHeader, Descriptions, Space , Spin} from 'antd';
+import { Row ,Col ,Typography, PageHeader, Descriptions,} from 'antd';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions  , Types} from '../state';
@@ -26,7 +26,7 @@ export default function User({ match }) {
     dispatch(actions.fetchUserHistory(name));
   }, [dispatch, name]);
  
-  const { isFetched , isSlow } = useFetchInfo(Types.FetchUser);
+  const { isFetched  } = useFetchInfo(Types.FetchUser);
 
   return (
     <>
