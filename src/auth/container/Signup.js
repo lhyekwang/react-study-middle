@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AuthLayout from '../component/AuthLayout';
 import { useDispatch } from 'react-redux';
 import { actions } from '../state';
-import useBlockLoginUser from '../../common/hook/userBlockLoginUser';
+import useBlockLoginUser from '../hook/userBlockLoginUser';
 
 export default function Signup() {
   useBlockLoginUser();
