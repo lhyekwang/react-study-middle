@@ -1,8 +1,8 @@
 
-import { all, put, call, takeEvery  } from 'redux-saga/effects';  
+import { all, put, call, takeEvery, takeLeading  } from 'redux-saga/effects';  
 import { Types , actions } from './index'
 import { callApi } from '../../common/util/api';
-import { makeFetchSaga } from '../../common/util/fetch';
+import { makeFetchSaga, deleteApiCache} from '../../common/util/fetch';
 
 function* fetchUser({ name }) {
   const { isSuccess, data } = yield call(callApi, {
@@ -18,11 +18,32 @@ function* fetchUser({ name }) {
   }
 }
 
+function* fetchUpdateUser({ user, key, value }) {
+  const oldValue = user[key];
+  yield put(actions.setValue('user', { ...user, [key]: value }));
+  const { isSuccess, data } = yield call(callApi, {
+    url: '/user/update',
+    method: 'post',
+    data: { name: user.name, key, value, oldValue },
+  });
+
+  if (isSuccess && data) {
+    deleteApiCache();
+    yield put(actions.addHistory(data.history));
+  } else {
+    yield put(actions.setValue('user', user));
+  }
+}
+
 export default function* () {
   yield all([
     takeEvery( 
       Types.FetchUser, 
       makeFetchSaga({ fetchSaga : fetchUser, canCache : true  })
-    )  
+    ), 
+    takeLeading(
+      Types.FetchUpdateUser,
+      makeFetchSaga({ fetchSaga: fetchUpdateUser, canCache: false }),
+    ),
   ]);
 }
