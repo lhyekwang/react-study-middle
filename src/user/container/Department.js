@@ -35,6 +35,7 @@ export default function Department() {
       {isEditDepartment && (
         <Input
           autoFocus
+          // ref = {ref => ref && ref.focus()}
           value={tempDepartment}
           onChange={e => setTempDepartment(e.target.value)}
           onPressEnter={onSaveDepartment}
