@@ -1,5 +1,5 @@
-import React , {useEffect} from 'react';
-import { Row ,Col ,Typography } from 'antd';
+import React, { useEffect } from 'react';
+import { Row, Col, Typography } from 'antd';
 import Settings from '../component/Settings';
 import SearchInput from '../container/SearchInput';
 import History from '../../common/component/History';
@@ -10,7 +10,6 @@ import { actions as authActions } from '../../auth/state';
 
 export default function Search() {
   useNeedLogin();
-
   const history = useSelector(state => state.search.history);
   const dispatch = useDispatch();
 
@@ -37,7 +36,7 @@ export default function Search() {
         </Col>
       </Row>
       <Row justify="center" style={{ marginTop: 50 }}>
-        <Col span={12}>
+        <Col xs={20} md={16} lg={12}>
           <SearchInput />
         </Col>
       </Row>
@@ -47,5 +46,5 @@ export default function Search() {
         </Col>
       </Row>
     </>
-    );
+  );
 }

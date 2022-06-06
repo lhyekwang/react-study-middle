@@ -35,7 +35,7 @@ export default function User({ match }) {
        <Row justify="center">
         <Col xs={24} md={20} lg={14}>
           <PageHeader
-            onBack={history.goBack}
+            onBack={() => history.push('/')}
             title={
               <FetchLable
                   label='사용자 정보'

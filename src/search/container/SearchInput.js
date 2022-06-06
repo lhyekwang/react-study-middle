@@ -1,15 +1,14 @@
 import React from 'react';
-import {  AutoComplete, Input, Space, Typography  } from 'antd';
+import { AutoComplete, Input, Space, Typography } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import { useSelector , useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../state';
+import { actions as userActions } from '../../user/state';
 import { useHistory } from 'react-router-dom';
-import{ actions as userActions } from '../../user/state'
 
 export default function SearchInput() {
   const keyword = useSelector(state => state.search.keyword);
   const dispatch = useDispatch();
-
   function setKeyword(value) {
     if (value !== keyword) {
       dispatch(actions.setValue('keyword', value));
@@ -19,9 +18,9 @@ export default function SearchInput() {
 
   const autoCompletes = useSelector(state => state.search.autoCompletes);
   const history = useHistory();
-  function goToUser(value){
+  function goToUser(value) {
     const user = autoCompletes.find(item => item.name === value);
-    if(user){
+    if (user) {
       dispatch(userActions.setValue('user', user));
       history.push(`/user/${user.name}`);
     }
@@ -30,8 +29,8 @@ export default function SearchInput() {
   return (
     <AutoComplete
       value={keyword}
-      onChange={setKeyword} 
-      onSelect = { goToUser }  
+      onChange={setKeyword}
+      onSelect={goToUser}
       style={{ width: '100%' }}
       options={autoCompletes.map(item => ({
         value: item.name,
@@ -47,12 +46,11 @@ export default function SearchInput() {
       }))}
       autoFocus
     >
-      <Input 
-        size="large" 
-        placeholder="검색어를 입력해주세요" 
-        prefix = {<SearchOutlined />}
+      <Input
+        size="large"
+        placeholder="검색어를 입력해주세요"
+        prefix={<SearchOutlined />}
       />
     </AutoComplete>
-    );
+  );
 }
-
